@@ -3,16 +3,17 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const mysql = require('mysql');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
+
+const PORT = 3006;
 const db = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
 })
 
-const PORT = 3007;
 const corsOptions ={
     origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
@@ -22,7 +23,7 @@ const corsOptions ={
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
-dotenv.config();
+
 
 app.get("/", (req, res) => {
     res.send(`WORKING API... ${process.env.PORT || PORT}`)
@@ -31,7 +32,13 @@ app.get("/blog/get", (req, res) => {
 
     const sqlSelectAllBlogs = "SELECT * FROM blog ";
     db.query(sqlSelectAllBlogs, (err, result) => {
-        res.send(result);
+        if(err){
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+        
     })
 })
 
