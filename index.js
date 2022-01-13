@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/", (req, res) => {
-    res.send("WORKINGgg")
+    res.send("WORKING")
 })
 app.get("/blog/get", (req, res) => {
 
