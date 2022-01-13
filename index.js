@@ -6,6 +6,13 @@ const mysql = require('mysql');
 require('dotenv').config();
 
 
+
+
+
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 const PORT = 3006;
 const db = mysql.createPool({
     host: process.env.MYSQL_HOST,
@@ -13,17 +20,6 @@ const db = mysql.createPool({
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
 })
-
-const corsOptions ={
-    origin:'https://partnerfinderis.netlify.app/', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
 
 app.get("/", (req, res) => {
     res.send(`WORKING API... on port: ${process.env.PORT || PORT}`)
