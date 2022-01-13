@@ -15,7 +15,7 @@ const db = mysql.createPool({
 })
 
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:'https://partnerfinderis.netlify.app/', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
