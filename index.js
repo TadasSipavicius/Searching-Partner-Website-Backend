@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/", (req, res) => {
-    res.send(`WORKING API... ${process.env.PORT || PORT}`)
+    res.send(`WORKING API... on port: ${process.env.PORT || PORT}`)
 })
 app.get("/blog/get", (req, res) => {
 
