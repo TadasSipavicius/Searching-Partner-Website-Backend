@@ -3,21 +3,23 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const mysql = require('mysql');
+const dotenv = require('dotenv');
 
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "partnerfinderis"
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 })
-const PORT = 3006;
+
+const PORT = 3007;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+dotenv.config();
 
 app.get("/", (req, res) => {
-    res.send("WORKING API...")
+    res.send(`WORKING API... ${process.env.PORT || PORT}`)
 })
 app.get("/blog/get", (req, res) => {
 
@@ -143,5 +145,5 @@ app.post("/findplayer/insert", (req, res) =>{
 })
 
 app.listen(process.env.PORT || PORT, () => {
-    console.log(`Running on port ${PORT}`);
+    console.log(`Running on port ${process.env.PORT || PORT}`);
 })
